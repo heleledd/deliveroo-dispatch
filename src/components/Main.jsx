@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import RidersList from './game/Riders/RidersList.jsx'
+import JobsList from './game/Jobs/JobsList.jsx'
+import '../styles/Main.css'
 
 function Main() {
   const [clock, setClock] = useState(0);
@@ -13,11 +15,7 @@ function Main() {
 
       <div className="game-grid">
         <RidersList />
-
-        <div className="jobs-list-container">
-          {/* <JobsList /> */}
-          <p>Jobs List Placeholder</p>
-        </div>
+        <JobsList />
       </div>
     </div>
   );

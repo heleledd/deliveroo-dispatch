@@ -12,6 +12,7 @@ export default function RidersList() {
     
     return (
         <div className="riders-list">
+            <h2>Riders</h2>
             {riderEntries}
         </div>
     )

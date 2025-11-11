@@ -6,7 +6,7 @@ export default function RiderCard(props) {
             </div>
             <div className="rider-content">
                 <p className='rider-name'>{props.name}</p>
-                <p className='rider-vehicle'>{props.vehicle}</p>
+                <p className='rider-vehicle'>Vehicle: {props.vehicle}</p>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import '../styles/header.css';
+import '../styles/Header.css';
 import dispatchLogo from '../images/cm3117-thumbnail.png';
 
 export default function Header() {

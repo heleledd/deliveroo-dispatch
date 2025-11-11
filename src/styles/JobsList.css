@@ -1,0 +1,23 @@
+.job-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.job-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.job-image-container {
+    margin-right: 15px;
+}
+
+.job-name {
+    font-weight: bold;
+}
