@@ -1,0 +1,19 @@
+.rider-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.rider-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.rider-image-container {
+    margin-right: 15px;
+}
