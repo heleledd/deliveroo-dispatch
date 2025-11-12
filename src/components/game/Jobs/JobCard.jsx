@@ -5,7 +5,7 @@ export default function JobCard(props) {
     function handleSubmit(event) {
         event.preventDefault();
         const selectedRiderId = event.target.selectedRider.value;
-        props.onSelectRider(selectedRiderId);
+        props.onSelectRider(selectedRiderId, props.key);
     }
     
     return (

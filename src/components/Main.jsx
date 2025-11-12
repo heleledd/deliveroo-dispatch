@@ -7,25 +7,39 @@ import '../styles/Main.css'
 
 function Main() {
     const [clock, setClock] = useState(0); // 0 = 5:00 AM, 19*60 = 1140 minutes = 0:00 AM
+	const [isPaused, setIsPaused] = useState(false);
     const [riders, setRiders] = useState(initialRiders);
     const [jobs, setJobs] = useState(initialJobs);
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setClock(prev => prev + 1); // advance 2.375 game minutes per real second 
-      }, 1000); // every real second
+		if (isPaused) return;
+		
+		const interval = setInterval(() => {
+		setClock(prev => prev + 1); // advance 2.375 game minutes per real second 
+		}, 1000); // every real second
 
-	  // set to 2.375 because 19 hours×60 min/hour÷480 seconds=2.375 game-minutes per real second.
+		// set to 2.375 because 19 hours×60 min/hour÷480 seconds=2.375 game-minutes per real second.
 
-      return () => clearInterval(interval);
-    }, []);
+		return () => clearInterval(interval);
+    }, [isPaused]);
 
     // END GAME AFTER 14 HOURS (1440 ticks)
     useEffect(() => {
-      if (clock >= 1140) {
-        alert('Game Over! It\'s midnight!');
-        // optionally stop clock or reset game
-      }
+		useEffect(() => {
+		setRiders(prev =>
+			prev.map(r => {
+			if (!r.isAvailable && clock >= r.availableAt) {
+				return { ...r, isAvailable: true, availableAt: null };
+			}
+			return r;
+			})
+		);
+		}, [clock]);
+
+		if (clock >= 1140) {
+		alert('Game Over! It\'s midnight!');
+		setIsPaused(true);
+		}
     }, [clock]);
 
 
@@ -41,6 +55,8 @@ function Main() {
 	}
 
 
+	const togglePause = () => setIsPaused(prev => !prev);
+
 	// for progress bar
 	const progress = Math.min((clock / 1140) * 100, 100);
 
@@ -52,6 +68,10 @@ function Main() {
 			<div className="progress-bar">
 				<div className="progress-fill" style={{ width: `${progress}%` }} />
 			</div>
+
+			<button className="pause-btn" onClick={togglePause}>
+            	{isPaused ? '▶ Resume' : '⏸ Pause'}
+          	</button>
 
 			<p>💰 Deliveroo's Earnings: £0.00</p>
 		</div>
@@ -66,6 +86,7 @@ function Main() {
             jobs={jobs}
             setJobs={setJobs}
             setRiders={setRiders}
+			clock={clock}
           />
         </div>
       </div>
