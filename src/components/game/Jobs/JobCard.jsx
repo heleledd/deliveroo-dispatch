@@ -1,12 +1,11 @@
-import React from 'react';
 import RiderPicker from '../Riders/RiderPicker.jsx';
 
 export default function JobCard(props) {
+    
     function handleSubmit(event) {
         event.preventDefault();
         const selectedRiderId = event.target.selectedRider.value;
-        console.log(`Assigned rider ID: ${selectedRiderId}`);
-        // Further logic to assign the rider can be added here
+        props.onSelectRider(selectedRiderId);
     }
     
     return (

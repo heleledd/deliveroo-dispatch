@@ -1,5 +1,3 @@
-// need to find which riders are available from state which is passed as props
-
 export default function RiderPicker(props) {
     const availableRiders = props.riders.filter(rider => rider.isAvailable);
     const riderOptions = availableRiders.map(rider => (
