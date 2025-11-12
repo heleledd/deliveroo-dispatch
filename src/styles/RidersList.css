@@ -17,3 +17,13 @@
 .rider-image-container {
     margin-right: 15px;
 }
+
+.rider-card:hover {
+  transform: scale(1.03);
+}
+
+.rider-card.unavailable {
+  opacity: 0.5;           
+  background-color: #f0f0f0;
+  pointer-events: none;   
+}
