@@ -23,25 +23,59 @@ function Main() {
 		return () => clearInterval(interval);
     }, [isPaused]);
 
-    // END GAME AFTER 14 HOURS (1440 ticks)
-    useEffect(() => {
-		useEffect(() => {
-		setRiders(prev =>
-			prev.map(r => {
-			if (!r.isAvailable && clock >= r.availableAt) {
-				return { ...r, isAvailable: true, availableAt: null };
-			}
-			return r;
-			})
-		);
-		}, [clock]);
+    // Update rider availability and job status when time advances
+	useEffect(() => {
+		setRiders(prevRiders => {
+			const completedJobs = [];
 
-		if (clock >= 1140) {
-		alert('Game Over! It\'s midnight!');
-		setIsPaused(true);
+			const updatedRiders = prevRiders.map(r => {
+				if (!r.isAvailable && clock >= r.availableAt) {
+					// Rider just became available — mark job as completed
+					if (r.jobAssigned) {
+						completedJobs.push({jobId: r.jobAssigned, riderId: r.id});
+					}
+
+					return { 
+						...r, 
+						isAvailable: true, 
+						jobAssigned: null, 
+						availableAt: null 
+					};
+				}
+				return r;
+			});
+
+			// Update jobs *after* riders
+			if (completedJobs.length > 0) {
+			setJobs(prevJobs =>
+				prevJobs.map(j => {
+					const match = completedJobs.find(c => c.jobId === j.id);
+					if (match) {
+						// ✅ Add job pay to rider’s earnings
+						setRiders(prevR =>
+							prevR.map(r =>
+								r.id === match.riderId
+									? { ...r, earningsToday: (r.earningsToday || 0) + (j.pay || 0) }
+									: r
+							)
+						);
+						return { ...j, status: 'Completed' };
+					}
+					return j;
+				})
+			);
 		}
-    }, [clock]);
+			return updatedRiders;
+		});
+	}, [clock]);
 
+	// End game after 19 in-game hours (1140 ticks)
+	useEffect(() => {
+		if (clock >= 1140) {
+			alert("Game Over! It's midnight!");
+			setIsPaused(true);
+		}
+	}, [clock]);
 
 	// Format clock display: convert total minutes to readable time (HH:MM AM/PM)
 	function formatGameTime(clockMinutes) {
