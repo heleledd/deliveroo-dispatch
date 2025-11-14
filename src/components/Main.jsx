@@ -38,8 +38,9 @@ function Main() {
 					return { 
 						...r, 
 						isAvailable: true, 
-						jobAssigned: null, 
-						availableAt: null 
+						jobAssigned: null,
+						jobStartsAt: null, 
+						availableAt: null
 					};
 				}
 				return r;
@@ -59,7 +60,11 @@ function Main() {
 									: r
 							)
 						);
-						return { ...j, status: 'Completed' };
+						return { 
+							...j, 
+							status: 'Completed',
+							justCompleted:true
+						};
 					}
 					return j;
 				})
@@ -68,6 +73,19 @@ function Main() {
 			return updatedRiders;
 		});
 	}, [clock]);
+
+	// make the job card flash green when a job is completed
+	useEffect(() => {
+		const t = setTimeout(() => {
+			setJobs(prev =>
+				prev.map(j =>
+					j.justCompleted ? { ...j, justCompleted: false } : j
+				)
+			);
+		}, 1000);
+
+		return () => clearTimeout(t);
+	}, [jobs]);
 
 	// End game after 19 in-game hours (1140 ticks)
 	useEffect(() => {
@@ -99,8 +117,8 @@ function Main() {
         <div className="game-stats-container">
 			<p className="game-time">🕒 {formatGameTime(clock)}</p>
 
-			<div className="progress-bar">
-				<div className="progress-fill" style={{ width: `${progress}%` }} />
+			<div className="game-progress-bar">
+				<div className="game-progress-fill" style={{ width: `${progress}%` }} />
 			</div>
 
 			<button className="pause-btn" onClick={togglePause}>
@@ -114,6 +132,7 @@ function Main() {
           <RidersList 
             riders={riders}
             jobs={jobs}
+			clock={clock}
           />
           <JobsList 
             riders={riders}

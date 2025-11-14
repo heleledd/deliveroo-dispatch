@@ -14,13 +14,14 @@ export default function JobsList({riders, jobs, setJobs, setRiders, clock}) {
         const distance = job.distance;
         const speed = rider.speed;
         const duration = distance * speed;
-        const finishTime = clock + duration
+        const startTime = clock;
+        const finishTime = clock + duration;
         
         // Update the selected rider's availability to false and assign them the job ID
         setRiders(prev =>
             prev.map(r =>
                 r.id === parseInt(riderId)
-                ? { ...r, isAvailable: false, jobAssigned: jobId, availableAt: finishTime }
+                ? { ...r, isAvailable: false, jobAssigned: jobId, jobStartsAt: startTime, availableAt: finishTime }
                 : r
             )
         );
@@ -35,7 +36,7 @@ export default function JobsList({riders, jobs, setJobs, setRiders, clock}) {
     }
     
     const jobEntries = jobs
-        .filter(job => job.status !== 'Completed')
+        .filter(job => job.status !== 'Completed' || job.justCompleted)
         .map(job => (
             <JobCard 
             key={job.id}

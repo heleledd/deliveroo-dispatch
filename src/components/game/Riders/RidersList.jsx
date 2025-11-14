@@ -1,11 +1,13 @@
 import RiderCard from './RiderCard.jsx';
 import '../../../styles/RidersList.css';
 
-export default function RidersList(props) {
-    const riderEntries = props.riders.map((rider) => (
+export default function RidersList({riders, jobs, clock}) {
+    const riderEntries = riders.map((rider) => (
                 <RiderCard 
                     key={rider.id}
-                    {...rider}
+                    {...rider}  // spreads the individual rider's fields
+                    jobs={jobs}
+                    clock={clock}
                 />
             ))
     

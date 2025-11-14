@@ -9,7 +9,7 @@ export default function JobCard(props) {
     }
     
     return (
-        <div className='job-card'>
+        <div className={`job-card ${props.justCompleted ? 'flash-green' : ''}`}>
             {/* <div className="job-image-container">
                 <img className='job-image' src={props.img.src} alt={props.img.alt} />
             </div> */}
