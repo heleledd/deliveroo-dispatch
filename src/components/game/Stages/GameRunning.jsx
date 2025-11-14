@@ -1,91 +1,23 @@
 import { useState, useEffect } from 'react'
-import RidersList from '../Riders/RidersList.jsx'
-import JobsList from '../Jobs/JobsList.jsx'
-import initialJobs from '../../../data/jobs.js';
-import initialRiders from '../../../data/riders.js';
+import RidersList from '../riders/RidersList.jsx'
+import JobsList from '../jobs/JobsList.jsx'
+
+import useGameClock from "../hooks/useGameClock";
+import useJobCompletedFlash from '../hooks/useJobCompletedFlash.js';
+import useUpdateRidersJobs from '../hooks/useUpdateRidersJobs.js';
+import formatGameTime from '../helpers/formatGameTime.js';
+
 import '../../../styles/GameRunning.css'
 
 function GameRunning(props) {
-    const [clock, setClock] = useState(0); // 0 = 5:00 AM, 19*60 = 1140 minutes = 0:00 AM
 	const [isPaused, setIsPaused] = useState(false);
-    const [riders, setRiders] = useState(initialRiders);
-    const [jobs, setJobs] = useState(initialJobs);
+    
 
-    useEffect(() => {
-		if (isPaused) return;
-		
-		const interval = setInterval(() => {
-		setClock(prev => prev + 1); // advance 2.375 game minutes per real second 
-		}, 1000); // every real second
+    const clock = useGameClock(isPaused)
+    
+	const { riders, setRiders, jobs, setJobs } = useUpdateRidersJobs(clock);
 
-		// set to 2.375 because 19 hours×60 min/hour÷480 seconds=2.375 game-minutes per real second.
-
-		return () => clearInterval(interval);
-    }, [isPaused]);
-
-    // Update rider availability and job status when time advances
-	useEffect(() => {
-		setRiders(prevRiders => {
-			const completedJobs = [];
-
-			const updatedRiders = prevRiders.map(r => {
-				if (!r.isAvailable && clock >= r.availableAt) {
-					// Rider just became available — mark job as completed
-					if (r.jobAssigned) {
-						completedJobs.push({jobId: r.jobAssigned, riderId: r.id});
-					}
-
-					return { 
-						...r, 
-						isAvailable: true, 
-						jobAssigned: null,
-						jobStartsAt: null, 
-						availableAt: null
-					};
-				}
-				return r;
-			});
-
-			// Update jobs *after* riders
-			if (completedJobs.length > 0) {
-			setJobs(prevJobs =>
-				prevJobs.map(j => {
-					const match = completedJobs.find(c => c.jobId === j.id);
-					if (match) {
-						// ✅ Add job pay to rider’s earnings
-						setRiders(prevR =>
-							prevR.map(r =>
-								r.id === match.riderId
-									? { ...r, earningsToday: (r.earningsToday || 0) + (j.pay || 0) }
-									: r
-							)
-						);
-						return { 
-							...j, 
-							status: 'Completed',
-							justCompleted:true
-						};
-					}
-					return j;
-				})
-			);
-		}
-			return updatedRiders;
-		});
-	}, [clock]);
-
-	// make the job card flash green when a job is completed
-	useEffect(() => {
-		const t = setTimeout(() => {
-			setJobs(prev =>
-				prev.map(j =>
-					j.justCompleted ? { ...j, justCompleted: false } : j
-				)
-			);
-		}, 1000);
-
-		return () => clearTimeout(t);
-	}, [jobs]);
+	useJobCompletedFlash(jobs, setJobs)
 
 	// End game after 19 in-game hours (1140 ticks)
 	useEffect(() => {
@@ -93,17 +25,6 @@ function GameRunning(props) {
 			props.setGameState("ended")
 		}
 	}, [clock]);
-
-	// Format clock display: convert total minutes to readable time (HH:MM AM/PM)
-	function formatGameTime(clockMinutes) {
-		const totalMinutes = 5 * 60 + clockMinutes; // start from 5 AM
-		const hours = Math.floor(totalMinutes / 60);
-		const minutes = Math.floor(totalMinutes % 60);
-		const ampm = hours >= 12 ? 'PM' : 'AM';
-		const displayHour = ((hours + 11) % 12) + 1; // convert 0–23 → 1–12
-		const paddedMinutes = minutes.toString().padStart(2, '0');
-		return `${displayHour}:${paddedMinutes} ${ampm}`;
-	}
 
 
 	const togglePause = () => setIsPaused(prev => !prev);

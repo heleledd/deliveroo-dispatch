@@ -1,4 +1,4 @@
-import RiderPicker from '../Riders/RiderPicker.jsx';
+import RiderPicker from '../riders/RiderPicker.jsx';
 
 export default function JobCard(props) {
     
