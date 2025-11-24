@@ -1,15 +1,28 @@
-import RiderPicker from '../riders/RiderPicker.jsx';
+import { useDraggable } from "@dnd-kit/core";
 
 export default function JobCard(props) {
-    
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: `job-${props.id}`
+    });
+
+    const style = transform ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    } : undefined;
+
+
     function handleSubmit(event) {
-        event.preventDefault();
-        const selectedRiderId = event.target.selectedRider.value;
-        props.onSelectRider(selectedRiderId, props.id);
+        console.log("Submitted")
+        // event.preventDefault();
+        // const selectedRiderId = event.target.selectedRider.value;
+        // props.onSelectRider(selectedRiderId, props.id);
     }
     
     return (
-        <div className={`job-card ${props.justCompleted ? 'flash-green' : ''}`}>
+        <div 
+            ref={setNodeRef} {...listeners} {...attributes} 
+            style={style} 
+            className={`job-card ${props.justCompleted ? 'flash-green' : ''}`}
+        >
             {/* <div className="job-image-container">
                 <img className='job-image' src={props.img.src} alt={props.img.alt} />
             </div> */}
@@ -19,14 +32,6 @@ export default function JobCard(props) {
                 <p className='job-pay'>Pay: £{props.pay}</p>
                 <p className='job-status'>Status: {props.status}</p>
             </div>
-            {props.status == 'Uncompleted' &&
-            <div className="job-actions">
-                <form method="post" onSubmit={handleSubmit}>
-                    <RiderPicker riders={props.riders} />
-                    <button className='assign-job-button' type="submit">Assign Job</button>
-                </form>
-            </div>
-            }
             
         </div>
     )

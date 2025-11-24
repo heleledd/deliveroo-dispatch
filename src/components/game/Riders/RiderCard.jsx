@@ -1,4 +1,11 @@
+import {useDroppable} from '@dnd-kit/core';
+
 export default function RiderCard(props) {
+    const { setNodeRef, isOver } = useDroppable({
+        id: `rider-${props.id}`,
+        disabled: !props.isAvailable
+    });
+    
     function findRiderProgress(startTime, finishTime, clock) {
         const jobLength = finishTime - startTime;
         const jobProgress = ((clock - startTime) / jobLength) * 100;
@@ -20,7 +27,13 @@ export default function RiderCard(props) {
     }
     
     return (
-        <div className={`rider-card ${!props.isAvailable ? 'unavailable' : ''}`}>
+        <div 
+            ref={setNodeRef}
+            style={{
+                background: isOver ? "violet" : "white"
+            }}
+            className={`rider-card ${!props.isAvailable ? 'unavailable' : ''}`}
+        >
             <div className="rider-image-container">
                 <img className='rider-image' src={props.profileImg.src} alt={props.profileImg.alt} />
             </div>

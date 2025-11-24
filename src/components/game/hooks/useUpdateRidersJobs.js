@@ -1,63 +1,58 @@
 import { useState, useEffect } from 'react'
-import initialJobs from '../../../data/jobs.js';
-import initialRiders from '../../../data/riders.js';
 
-export default function useUpdateRidersJobs(clock) {
-    const [riders, setRiders] = useState(initialRiders);
-    const [jobs, setJobs] = useState(initialJobs);
-
+export default function useUpdateRidersJobs(clock, riders, setRiders, jobs, setJobs) {
+    
     useEffect(() => {
+
+        // 1. compute completed jobs AND new riders
         const completedJobs = [];
-
-        setRiders(prevRiders =>
-            prevRiders.map(r => {
-                if (!r.isAvailable && clock >= r.availableAt) {
-                    if (r.jobAssigned) {
-                        completedJobs.push({
-                            jobId: r.jobAssigned,
-                            riderId: r.id
-                        });
-                    }
-
-                    return {
-                        ...r,
-                        isAvailable: true,
-                        jobAssigned: null,
-                        jobStartsAt: null,
-                        availableAt: null
-                    };
+        const newRiders = riders.map(r => {
+            if (!r.isAvailable && clock >= r.availableAt) {
+                if (r.jobAssigned) {
+                    completedJobs.push({ jobId: r.jobAssigned, riderId: r.id })
                 }
-                return r;
-            })
-        );
+                return {
+                    ...r,
+                    isAvailable: true,
+                    jobAssigned: null,
+                    jobStartsAt: null,
+                    availableAt: null
+                };
+            }
+            return r;
+        });
 
-        // Update jobs in a *separate* state update
-        if (completedJobs.length > 0) {
-            setJobs(prevJobs =>
-                prevJobs.map(j => {
-                    const match = completedJobs.find(c => c.jobId === j.id);
-                    if (match) {
-                        // Update rider earnings *in a separate safe update*
-                        setRiders(prevR =>
-                            prevR.map(r =>
-                                r.id === match.riderId
-                                    ? { ...r, earningsToday: (r.earningsToday || 0) + (j.pay || 0) }
-                                    : r
-                            )
-                        );
-
-                        return {
-                            ...j,
-                            status: 'Completed',
-                            justCompleted: true
-                        };
-                    }
-                    return j;
-                })
-            );
+        // 2. If no jobs completed, just update riders
+        if (completedJobs.length === 0) {
+            setRiders(newRiders);
+            return;
         }
+
+        // 3. Update jobs
+        const newJobs = jobs.map(j => {
+            const c = completedJobs.find(x => x.jobId === j.id);
+            return c
+                ? { ...j, status: "Completed", justCompleted: true }
+                : j;
+        });
+
+        // 4. Add earnings
+        const finalRiders = newRiders.map(r => {
+            const c = completedJobs.find(x => x.riderId === r.id);
+            if (!c) return r;
+
+            const job = jobs.find(j => j.id === c.jobId);
+
+            return {
+                ...r,
+                earningsToday: (r.earningsToday || 0) + (job?.pay || 0)
+            };
+        });
+
+        // 5. Apply updates ONCE
+        setRiders(finalRiders);
+        setJobs(newJobs);
 
     }, [clock]);
 
-    return { riders, setRiders, jobs, setJobs };
 }
