@@ -7,8 +7,9 @@ function Main() {
 	if (gameState === "start") {
 		return (
 			<div className="start-screen">
-				<p>Welcome! Assign riders to jobs and manage time efficiently.</p>
+				<p>Welcome! Assign riders to jobs and manage time efficiently by dragging and dropping jobs to available riders.</p>
 				<p>The day runs from 5 AM to midnight (19 hours).</p>
+				<p>order value is the money that the customer paid - includes VAT, cost of the food and deliveroo fees</p>
 
 				<button onClick={() => setGameState("playing")}>
 					Start Game

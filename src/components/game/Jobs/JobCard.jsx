@@ -22,8 +22,7 @@ export default function JobCard(props) {
             <div className="job-content">
                 <p className='job-name'>{props.description}</p>
                 <p className='job-distance'>Distance: {props.distance} km</p>
-                <p className='job-pay'>Customer will pay: £{props.customer_pay}</p>
-                <p className='job-status'>Status: {props.status}</p>
+                <p className='job-pay'>Order Value: £{props.customer_paid.toFixed(2)}</p>
             </div>
             
         </div>

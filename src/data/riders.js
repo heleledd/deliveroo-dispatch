@@ -48,7 +48,7 @@ const riders = [
   {
     id: 3,
     name: "Mark Bramble",
-    vehicle: "Bike",
+    vehicle: "Push Bike",
     profileImg: {
             src: markBImg,
             alt: "Mark B"

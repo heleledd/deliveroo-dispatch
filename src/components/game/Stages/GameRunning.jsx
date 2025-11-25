@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import RidersList from '../riders/RidersList.jsx'
 import JobsList from '../jobs/JobsList.jsx'
-import initialJobs from '../../../data/jobs.js';
+import initialJobs from '../../../data/jobPool.js';
 import initialRiders from '../../../data/riders.js';
 
 import useGameClock from "../hooks/useGameClock";
 import useUpdateRidersJobs from '../hooks/useAutoUpdateRidersJobs.js';
 import formatGameTime from '../helpers/formatGameTime.js';
 import useJobAssigner from '../hooks/useJobAssigner.js';
+import useJobSpawner from '../hooks/useJobSpawner.js';
 
 import {DndContext} from '@dnd-kit/core';
 
@@ -15,13 +16,15 @@ import '../../../styles/GameRunning.css'
 
 function GameRunning(props) {
 	const [riders, setRiders] = useState(initialRiders);
-    const [jobs, setJobs] = useState(initialJobs);
+    const [jobs, setJobs] = useState([]);
 	const [isPaused, setIsPaused] = useState(false);
 	const [deliverooEarnings, setDeliverooEarnings] = useState(0);
 	const [foodBusinessEarnings, setFoodBusinessEarnings] = useState(0);
-    
+    const [jobPool, setJobPool] = useState(initialJobs);
 
     const clock = useGameClock(isPaused)
+
+	useJobSpawner(jobPool, setJobPool, setJobs, clock)
     
 	// checks every second for any jobs which have ended that second and does the admin
 	useUpdateRidersJobs(
@@ -45,7 +48,7 @@ function GameRunning(props) {
 	const togglePause = () => setIsPaused(prev => !prev);
 
 	// for progress bar
-	const progress = Math.min((clock / 1140) * 100, 100);
+	const progress = Math.min((clock / 720) * 100, 100);
 
 
 	function handleDragEnd(event) {

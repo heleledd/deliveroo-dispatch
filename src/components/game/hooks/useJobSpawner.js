@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import getSpawnChance from '../helpers/getSpawnChance'
 
-export default function useJobSpawner() {
+export default function useJobSpawner(jobPool, setJobPool, setJobs, clock) {
     useEffect(() => {
         if (jobPool.length === 0) return; // no more jobs left
 
