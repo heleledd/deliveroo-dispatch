@@ -1,8 +1,19 @@
 import { useState, useEffect } from 'react'
+import jobPricer from '../helpers/jobPricer.js'
 
-export default function useUpdateRidersJobs(clock, riders, setRiders, jobs, setJobs) {
+export default function useUpdateRidersJobs(
+        clock, 
+		riders, 
+		setRiders, 
+		jobs, 
+		setJobs, 
+		setDeliverooEarnings, 
+		setFoodBusinessEarnings
+    ) {
     
     useEffect(() => {
+        let deliverooTotal = 0;
+        let foodBusinessTotal = 0;
 
         // 1. compute completed jobs AND new riders
         const completedJobs = [];
@@ -31,11 +42,15 @@ export default function useUpdateRidersJobs(clock, riders, setRiders, jobs, setJ
         // 3. Update jobs
         const newJobs = jobs.map(j => {
             const c = completedJobs.find(x => x.jobId === j.id);
-            return c
-                ? { ...j, status: "Completed", justCompleted: true }
-                : j;
+            if (!c) return j;
+
+            return {
+                ...j,
+                status: "Completed"
+            }
         });
 
+        
         // 4. Add earnings
         const finalRiders = newRiders.map(r => {
             const c = completedJobs.find(x => x.riderId === r.id);
@@ -43,15 +58,31 @@ export default function useUpdateRidersJobs(clock, riders, setRiders, jobs, setJ
 
             const job = jobs.find(j => j.id === c.jobId);
 
+            // get pricing for this job
+            const { 
+                rider_earnings, 
+                deliveroo_earnings, 
+                food_business_earnings, 
+                tip 
+            } = jobPricer(job);
+
+            // accumulate global totals (not in the rider object)
+            deliverooTotal += deliveroo_earnings;
+            foodBusinessTotal += food_business_earnings;
+
             return {
                 ...r,
-                earningsToday: (r.earningsToday || 0) + (job?.pay || 0)
+                earningsToday: (r.earningsToday || 0) + rider_earnings,
+                tipsEarned: (r.tipsEarned || 0) + tip,
             };
         });
+
 
         // 5. Apply updates ONCE
         setRiders(finalRiders);
         setJobs(newJobs);
+        setDeliverooEarnings(prev => prev + deliverooTotal)
+        setFoodBusinessEarnings(prev => prev + foodBusinessTotal)
 
     }, [clock]);
 
