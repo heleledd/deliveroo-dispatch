@@ -37,5 +37,5 @@ export default function jobPricer(job) {
         tip = Math.max(Math.min(0.30 * orderValue, 2), 0.05); 
     } 
 
-    return { rider_earnings, deliveroo_earnings, food_business_earnings, tip };
+    return { rider_earnings, deliveroo_earnings, food_business_earnings, tip, orderValue };
 }

@@ -1,0 +1,36 @@
+function GameEnd(
+    {
+        riders,
+        deliverooEarnings,
+        foodBusinessEarnings,
+        totalOrderValue
+    }
+) {
+    return (
+        <div className="game-end-container">
+            <h2>Game Over! - Thank you for playing!</h2>
+
+            <div className="earnings-summary">
+                <p>Total value of today's orders: £{totalOrderValue.toFixed(2)}</p>
+                <p>Deliveroo's final earnings: £{deliverooEarnings.toFixed(2)}</p>
+                <p>Total food business earnings: £{foodBusinessEarnings.toFixed(2)}</p>
+
+            </div>
+
+            <div className="riders-summary">
+                <h3>Riders Summary:</h3>
+                {riders.map((rider) => (
+                    <div key={rider.id} className="rider-summary">
+                        <p><strong>{rider.name}</strong></p>
+                        <p>Completed Jobs: {rider.completedJobs.length}</p>
+                        <p>Total Earnings: £{rider.earnings.toFixed(2)}</p>
+                    </div>
+                ))}
+            </div>
+
+            <button className="play-again-btn" onClick={() => window.location.reload()}>Play again</button>
+        </div>
+    );    
+}
+
+export default GameEnd;

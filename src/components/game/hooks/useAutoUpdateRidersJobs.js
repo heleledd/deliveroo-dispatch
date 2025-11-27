@@ -8,12 +8,14 @@ export default function useUpdateRidersJobs(
 		jobs, 
 		setJobs, 
 		setDeliverooEarnings, 
-		setFoodBusinessEarnings
+		setFoodBusinessEarnings,
+        setTotalOrderValue
     ) {
     
     useEffect(() => {
         let deliverooTotal = 0;
         let foodBusinessTotal = 0;
+        let orderValue = 0;
 
         // 1. compute completed jobs AND new riders
         const completedJobs = [];
@@ -63,7 +65,8 @@ export default function useUpdateRidersJobs(
                 rider_earnings, 
                 deliveroo_earnings, 
                 food_business_earnings, 
-                tip 
+                tip,
+                orderValue 
             } = jobPricer(job);
 
             // accumulate global totals (not in the rider object)
@@ -83,6 +86,7 @@ export default function useUpdateRidersJobs(
         setJobs(newJobs);
         setDeliverooEarnings(prev => prev + deliverooTotal)
         setFoodBusinessEarnings(prev => prev + foodBusinessTotal)
+        setTotalOrderValue(prev => prev + orderValue)
 
     }, [clock]);
 

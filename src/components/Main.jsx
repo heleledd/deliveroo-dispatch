@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import GameRunning from './game/Stages/GameRunning'
+import GameEnd from './game/stages/GameEnd.jsx'
+import initialRiders from '../data/riders.js';
 
 function Main() {
     const [gameState, setGameState] = useState("start")
-	
+	const [riders, setRiders] = useState(initialRiders);
+	const [foodBusinessEarnings, setFoodBusinessEarnings] = useState(0);
+	const [deliverooEarnings, setDeliverooEarnings] = useState(0);
+	const [totalOrderValue, setTotalOrderValue] = useState(0);
+
 	if (gameState === "start") {
 		return (
 			<div className="start-screen">
@@ -22,6 +28,12 @@ function Main() {
 		return (
 			<GameRunning 
 				setGameState={setGameState}
+				riders={riders}
+				setRiders={setRiders}
+				setFoodBusinessEarnings={setFoodBusinessEarnings}
+				deliverooEarnings={deliverooEarnings}
+				setDeliverooEarnings={setDeliverooEarnings}
+				setTotalOrderValue={setTotalOrderValue}
 			/>
 		)
 	}
@@ -30,15 +42,12 @@ function Main() {
 		// calculate final earnings and how much you made as the deliveroo algorithm
 		
 		return (
-			<div className="end-screen">
-				<h1>Day Complete!</h1>
-				<p>You finished a full shift.</p>
-				<h2>Total Earnings: £</h2>
-
-				<button onClick={() => window.location.reload()}>
-					Play Again
-				</button>
-			</div>
+			<GameEnd 
+				riders={riders}
+				deliverooEarnings={deliverooEarnings}
+				foodBusinessEarnings={foodBusinessEarnings}
+				totalOrderValue={totalOrderValue}
+			/>
 		);
 	}
 

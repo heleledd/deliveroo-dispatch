@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import RidersList from '../riders/RidersList.jsx'
 import JobsList from '../jobs/JobsList.jsx'
+import RiderFullProfile from '../riders/RiderFullProfile.jsx';
 import initialJobs from '../../../data/jobPool.js';
-import initialRiders from '../../../data/riders.js';
 
 import useGameClock from "../hooks/useGameClock";
 import useUpdateRidersJobs from '../hooks/useAutoUpdateRidersJobs.js';
@@ -14,13 +14,22 @@ import {DndContext} from '@dnd-kit/core';
 
 import '../../../styles/GameRunning.css'
 
-function GameRunning(props) {
-	const [riders, setRiders] = useState(initialRiders);
+function GameRunning(
+	{
+		setGameState, 
+		riders, 
+		setRiders, 
+		setFoodBusinessEarnings,
+		deliverooEarnings,
+		setDeliverooEarnings,
+		setTotalOrderValue
+	}
+) {
+	
     const [jobs, setJobs] = useState([]);
 	const [isPaused, setIsPaused] = useState(false);
-	const [deliverooEarnings, setDeliverooEarnings] = useState(0);
-	const [foodBusinessEarnings, setFoodBusinessEarnings] = useState(0);
     const [jobPool, setJobPool] = useState(initialJobs);
+	const [viewingRider, setViewingRider] = useState(null);
 
     const clock = useGameClock(isPaused)
 
@@ -34,13 +43,14 @@ function GameRunning(props) {
 		jobs, 
 		setJobs, 
 		setDeliverooEarnings,  
-		setFoodBusinessEarnings
+		setFoodBusinessEarnings,
+		setTotalOrderValue
 	);
 
-	// End game after 19 in-game hours (1140 ticks)
+	// End game after 12 in-game hours (720 ticks)
 	useEffect(() => {
-		if (clock >= 1140) {
-			props.setGameState("ended")
+		if (clock >= 720) {
+			setGameState("ended")
 		}
 	}, [clock]);
 
@@ -59,6 +69,11 @@ function GameRunning(props) {
 		const riderId = parseInt(over.id.replace("rider-", ""));
 
 		useJobAssigner(riderId, jobId, jobs, riders, clock, setJobs, setRiders);
+	}
+
+	function handleViewProfile(riderId) {
+		setViewingRider(riderId);
+		setIsPaused(true);
 	}
 
     return (
@@ -84,6 +99,7 @@ function GameRunning(props) {
 						riders={riders}
 						jobs={jobs}
 						clock={clock}
+						handleViewProfile={handleViewProfile}
 					/>
 					<JobsList 
 						riders={riders}
@@ -95,6 +111,13 @@ function GameRunning(props) {
 					</div>
 				</div>
 			</DndContext>
+			{viewingRider !== null &&
+				<RiderFullProfile 
+					rider={riders.find(r => r.id === viewingRider)}
+					setViewingRider={setViewingRider}
+					setIsPaused={setIsPaused}
+				/>
+			}
 		</>
     );
 }

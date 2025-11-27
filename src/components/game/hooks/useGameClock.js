@@ -13,5 +13,5 @@ export default function useGameClock(isPaused) {
         return () => clearInterval(interval);
     }, [isPaused]);
 
-    return clock;
+    return clock; 
 }
