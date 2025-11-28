@@ -81,17 +81,18 @@ function GameRunning(
 			<DndContext onDragEnd={handleDragEnd}>
 				<div className="game-container">
 					<div className="game-stats-container">
-						<p className="game-time">🕒 {formatGameTime(clock)}</p>
+						
+						<button className="pause-btn" onClick={togglePause}>
+							{isPaused ? '▶ ' : '⏸ '}
+						</button>
 
 						<div className="game-progress-bar">
 							<div className="game-progress-fill" style={{ width: `${progress}%` }} />
 						</div>
 
-						<button className="pause-btn" onClick={togglePause}>
-							{isPaused ? '▶ Resume' : '⏸ Pause'}
-						</button>
+						<p className="game-time">🕒 {formatGameTime(clock)}</p>
 
-						<p>💰 Deliveroo's Earnings: £{deliverooEarnings.toFixed(2)}</p>
+						<p className="earnings">💰 Deliveroo's Earnings: £{deliverooEarnings.toFixed(2)}</p>
 					</div>
 
 					<div className="game-grid">

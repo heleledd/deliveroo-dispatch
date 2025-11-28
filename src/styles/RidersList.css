@@ -24,7 +24,7 @@
 
 .rider-card.unavailable {
   opacity: 0.5;           
-  background-color: #f0f0f0;
+  background-color: #b4eb45;
   pointer-events: none;   
 }
 

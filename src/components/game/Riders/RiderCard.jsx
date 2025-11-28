@@ -30,7 +30,7 @@ export default function RiderCard(props) {
         <div 
             ref={setNodeRef}
             style={{
-                background: isOver ? "violet" : "white"
+                background: isOver ? "#ffe500" : "white"
             }}
             className={`rider-card ${!props.isAvailable ? 'unavailable' : ''}`}
         >
@@ -38,7 +38,7 @@ export default function RiderCard(props) {
                 <img className='rider-image' src={props.profileImg.src} alt={props.profileImg.alt} />
             </div>
             <div className="rider-content">
-                <p className='rider-name'>{props.name}</p>
+                <h3 className='rider-name'>{props.name}</h3>
                 <p className='rider-vehicle'>Vehicle: {props.vehicle}</p>
                 <button 
                     className="view-profile-btn" 

@@ -14,8 +14,10 @@ export default function RidersList({riders, jobs, clock, handleViewProfile}) {
     
     return (
         <div className="riders-list">
-            <h2>Riders</h2>
-            {riderEntries}
+            <h2 className="list-title">RIDERS</h2>
+            <div className="rider-entries-container">
+                {riderEntries}
+            </div>
         </div>
     )
 

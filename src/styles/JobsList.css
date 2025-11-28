@@ -22,11 +22,3 @@
     font-weight: bold;
 }
 
-.job-card.flash-green {
-  animation: flash-green 1.5s ease-out;
-}
-
-@keyframes flash-green {
-  0% { background-color: #00ff00; }
-  100% { background-color: transparent; }
-}

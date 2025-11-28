@@ -15,7 +15,7 @@ export default function JobsList({riders, jobs, setJobs, setRiders, clock}) {
     
     return (
         <div className="jobs-list">
-            <h2>Available Jobs</h2>
+            <h2 className="list-title">JOBS</h2>
             {jobEntries}
         </div>
     );
