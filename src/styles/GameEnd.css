@@ -1,0 +1,66 @@
+
+.game-end-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.game-end-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.earnings-summary {
+    background: #f7f7f7;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+}
+
+.earnings-summary p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.riders-summary {
+    text-align: left;
+}
+
+.riders-summary h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.rider-summary {
+    background: #f0f4ff;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.rider-summary p {
+    margin: 4px 0;
+}
+
+.play-again-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    background-color: #4c8bf5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.play-again-btn:hover {
+    background-color: #2f6ee5;
+}

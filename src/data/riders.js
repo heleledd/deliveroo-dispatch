@@ -1,4 +1,4 @@
-import markBImg from '../images/rider-profiles/markB.png';
+import markBImg from '../images/rider-profiles/mark-bike.jpg';
 
 const riders = [
   {
@@ -21,7 +21,8 @@ const riders = [
     shift_start: "10:00",
     shift_end: "18:00",
     status: "Online",
-    shortBio: "Fast and reliable rider who's been with Deliveroo for 3 years."
+    shortBio: "Fast and reliable rider who's been with Deliveroo for 3 years.",
+    fullBio: ""
   },
   {
     id: 2,
@@ -43,7 +44,8 @@ const riders = [
     status: "Online",
     shift_start: "10:00",
     shift_end: "18:00",
-    shortBio: "hello."
+    shortBio: "hello.",
+    fullBio: ""
   },
   {
     id: 3,
@@ -65,7 +67,8 @@ const riders = [
     status: "Online",
     shift_start: "10:00",
     shift_end: "18:00",
-    shortBio: "Student who loves biking."
+    shortBio: "Student who loves biking.",
+    fullBio: ""
   },
   {
     id: 4,
@@ -87,7 +90,8 @@ const riders = [
     status: "Online",
     shift_start: "10:00",
     shift_end: "18:00",
-    shortBio: "Speedy and dangerous. He'll stop at nothing to get food delivered."
+    shortBio: "Speedy and dangerous. He'll stop at nothing to get food delivered.",
+    fullBio: ""
   }
 
 ];

@@ -1,3 +1,5 @@
+import '../../../styles/GameEnd.css'
+
 function GameEnd(
     {
         riders,
@@ -23,12 +25,11 @@ function GameEnd(
                     <div key={rider.id} className="rider-summary">
                         <p><strong>{rider.name}</strong></p>
                         <p>Completed Jobs: {rider.completedJobs.length}</p>
-                        <p>Total Earnings: £{rider.earnings.toFixed(2)}</p>
+                        <p>Total Earnings: £{/*rider.earnings.toFixed(2)*/}</p>
+                        <p>Full Bio: {rider.fullBio}</p> 
                     </div>
                 ))}
             </div>
-
-            <button className="play-again-btn" onClick={() => window.location.reload()}>Play again</button>
         </div>
     );    
 }

@@ -1,0 +1,16 @@
+.start-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.start-play-button {
+    background: none;
+    border: none;
+    color: #01857a;
+    cursor: pointer;
+}

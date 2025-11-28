@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import GameRunning from './game/Stages/GameRunning'
+import GameStart from './game/stages/GameStart.jsx'
+import GameRunning from './game/stages/GameRunning'
 import GameEnd from './game/stages/GameEnd.jsx'
 import initialRiders from '../data/riders.js';
+import Header from './Header.jsx';
 
 function Main() {
     const [gameState, setGameState] = useState("start")
@@ -10,31 +12,39 @@ function Main() {
 	const [deliverooEarnings, setDeliverooEarnings] = useState(0);
 	const [totalOrderValue, setTotalOrderValue] = useState(0);
 
+	// function for restarting the game
+	const restartGame = () => {
+        setGameState("start");
+        setRiders(initialRiders);
+        setFoodBusinessEarnings(0);
+        setDeliverooEarnings(0);
+        setTotalOrderValue(0);
+    };
+
+
 	if (gameState === "start") {
 		return (
-			<div className="start-screen">
-				<p>Welcome! Assign riders to jobs and manage time efficiently by dragging and dropping jobs to available riders.</p>
-				<p>The day runs from 5 AM to midnight (19 hours).</p>
-				<p>order value is the money that the customer paid - includes VAT, cost of the food and deliveroo fees</p>
-
-				<button onClick={() => setGameState("playing")}>
-					Start Game
-				</button>
-			</div>
+			<>
+				<Header restartGame={restartGame} />
+				<GameStart setGameState={setGameState} />
+			</>
 		);
 	}
 
 	if (gameState === "playing") {
 		return (
-			<GameRunning 
-				setGameState={setGameState}
-				riders={riders}
-				setRiders={setRiders}
-				setFoodBusinessEarnings={setFoodBusinessEarnings}
-				deliverooEarnings={deliverooEarnings}
-				setDeliverooEarnings={setDeliverooEarnings}
-				setTotalOrderValue={setTotalOrderValue}
-			/>
+			<>
+				<Header restartGame={restartGame} />
+				<GameRunning 
+					setGameState={setGameState}
+					riders={riders}
+					setRiders={setRiders}
+					setFoodBusinessEarnings={setFoodBusinessEarnings}
+					deliverooEarnings={deliverooEarnings}
+					setDeliverooEarnings={setDeliverooEarnings}
+					setTotalOrderValue={setTotalOrderValue}
+				/>
+			</>
 		)
 	}
 
@@ -42,12 +52,15 @@ function Main() {
 		// calculate final earnings and how much you made as the deliveroo algorithm
 		
 		return (
-			<GameEnd 
-				riders={riders}
-				deliverooEarnings={deliverooEarnings}
-				foodBusinessEarnings={foodBusinessEarnings}
-				totalOrderValue={totalOrderValue}
-			/>
+			<>
+				<Header restartGame={restartGame} />
+				<GameEnd 
+					riders={riders}
+					deliverooEarnings={deliverooEarnings}
+					foodBusinessEarnings={foodBusinessEarnings}
+					totalOrderValue={totalOrderValue}
+				/>
+			</>
 		);
 	}
 
