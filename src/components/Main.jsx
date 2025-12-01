@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import GameStart from './game/stages/GameStart.jsx'
-import GameRunning from './game/stages/GameRunning'
+import GameRunning from './game/stages/GameRunning.jsx'
 import GameEnd from './game/stages/GameEnd.jsx'
 import initialRiders from '../data/riders.js';
 import Header from './Header.jsx';
