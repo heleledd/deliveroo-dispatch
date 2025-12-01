@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import RidersList from '../Riders/RidersList.jsx'
-import JobsList from '../jobs/JobsList.jsx'
+import JobsList from '../Jobs/JobsList.jsx'
 import RiderFullProfile from '../Riders/RiderFullProfile.jsx';
 import initialJobs from '../../../data/jobPool.js';
 
