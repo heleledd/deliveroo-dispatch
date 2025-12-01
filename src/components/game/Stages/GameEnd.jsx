@@ -13,9 +13,9 @@ function GameEnd(
             <h2>Game Over! - Thank you for playing!</h2>
 
             <div className="earnings-summary">
-                <p>The total order value includes VAT, cost of the food and deliveroo fees</p>
+                {/* <p>The total order value includes VAT, cost of the food and deliveroo fees</p> */}
 
-                <p>Total value of today's orders: £{totalOrderValue.toFixed(2)}</p>
+                {/* <p>Total value of today's orders: £{totalOrderValue.toFixed(2)}</p> */}
                 <p>Deliveroo's final earnings: £{deliverooEarnings.toFixed(2)}</p>
                 <p>Total food business earnings: £{foodBusinessEarnings.toFixed(2)}</p>
 
@@ -26,9 +26,10 @@ function GameEnd(
                 {riders.map((rider) => (
                     <div key={rider.id} className="rider-summary">
                         <p><strong>{rider.name}</strong></p>
-                        <p>Completed Jobs: {rider.completedJobs.length}</p>
-                        <p>Total Earnings: £{/*rider.earnings.toFixed(2)*/}</p>
-                        <p>Full Bio: {rider.fullBio}</p> 
+                        <p>Completed Jobs: {rider.jobsDone}</p>
+                        <p>Earnings: £{rider.earningsToday.toFixed(2)}</p>
+                        <p>Tips: £{rider.tipsEarned.toFixed(2)}</p>
+                        <p>{rider.fullBio}</p> 
                     </div>
                 ))}
             </div>

@@ -30,7 +30,8 @@ export default function useUpdateRidersJobs(
                     isAvailable: true,
                     jobAssigned: null,
                     jobStartsAt: null,
-                    availableAt: null
+                    availableAt: null,
+                    jobsDone: (r.jobsDone || 0) + 1,
                 };
             }
             return r;
