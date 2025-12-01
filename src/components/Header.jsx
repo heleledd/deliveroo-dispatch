@@ -1,4 +1,4 @@
-import '../styles/Header.css';
+import '../styles/header.css';
 import { RotateCcw } from 'lucide-react';
 import deliverooLogo from '../images/deliveroo-icon.png';
 
