@@ -4,7 +4,7 @@ import JobsList from '../jobs/JobsList.jsx'
 import RiderFullProfile from '../riders/RiderFullProfile.jsx';
 import initialJobs from '../../../data/jobPool.js';
 
-import useGameClock from "../hooks/useGameClock";
+import useGameClock from "../hooks/useGameClock.js";
 import useUpdateRidersJobs from '../hooks/useAutoUpdateRidersJobs.js';
 import formatGameTime from '../helpers/formatGameTime.js';
 import useJobAssigner from '../hooks/useJobAssigner.js';

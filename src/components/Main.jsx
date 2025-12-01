@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import GameStart from './game/stages/GameStart.jsx'
-import GameRunning from './game/stages/GameRunning.jsx'
-import GameEnd from './game/stages/GameEnd.jsx'
+import GameStart from './game/Stages/GameStart.jsx'
+import GameRunning from './game/Stages/GameRunning.jsx'
+import GameEnd from './game/Stages/GameEnd.jsx'
 import initialRiders from '../data/riders.js';
 import Header from './Header.jsx';
 
