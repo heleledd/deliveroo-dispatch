@@ -13,6 +13,8 @@ function GameEnd(
             <h2>Game Over! - Thank you for playing!</h2>
 
             <div className="earnings-summary">
+                <p>The total order value includes VAT, cost of the food and deliveroo fees</p>
+
                 <p>Total value of today's orders: £{totalOrderValue.toFixed(2)}</p>
                 <p>Deliveroo's final earnings: £{deliverooEarnings.toFixed(2)}</p>
                 <p>Total food business earnings: £{foodBusinessEarnings.toFixed(2)}</p>

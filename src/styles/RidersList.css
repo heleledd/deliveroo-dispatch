@@ -1,6 +1,6 @@
 .rider-card img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -14,6 +14,22 @@
     background-color: #fff;
 }
 
+.rider-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.rider-job-assigned-indicator {
+  margin-right: 15px;
+}
+
+.rider-name {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 .rider-image-container {
     margin-right: 15px;
 }
@@ -25,7 +41,6 @@
 .rider-card.unavailable {
   opacity: 0.5;           
   background-color: #b4eb45;
-  pointer-events: none;   
 }
 
 .rider-progress-bar {

@@ -1,4 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
+import { ReceiptText } from 'lucide-react';
 
 export default function JobCard(props) {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -16,15 +17,19 @@ export default function JobCard(props) {
             style={style} 
             className="job-card"
         >
-            {/* <div className="job-image-container">
-                <img className='job-image' src={props.img.src} alt={props.img.alt} />
-            </div> */}
-            <div className="job-content">
-                <p className='job-name'>{props.description}</p>
-                <p className='job-distance'>Distance: {props.distance} km</p>
-                <p className='job-pay'>Order Value: £{props.customer_paid.toFixed(2)}</p>
+            <div className="job-icon-container">
+                <ReceiptText size={60} />
             </div>
-            
+            <p className='job-name'>{props.description}</p>
+            <div className="job-details">
+                <div className="distance-content">
+                    <p className='graphic-detail'>{props.distance} km</p>
+                </div>
+                <div className="money-content">
+                    <p className='graphic-detail'>£{props.customer_paid.toFixed(2)}</p>
+                </div>
+            </div>
+
         </div>
     )
 }

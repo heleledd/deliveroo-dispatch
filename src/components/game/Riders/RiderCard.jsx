@@ -30,30 +30,27 @@ export default function RiderCard(props) {
         <div 
             ref={setNodeRef}
             style={{
-                background: isOver ? "#ffe500" : "white"
+                background: isOver ? "#ffe500" : "white",
+                cursor: "pointer"
             }}
+            onClick={() => props.onViewProfile(props.id)}
             className={`rider-card ${!props.isAvailable ? 'unavailable' : ''}`}
         >
             <div className="rider-image-container">
                 <img className='rider-image' src={props.profileImg.src} alt={props.profileImg.alt} />
             </div>
             <div className="rider-content">
-                <h3 className='rider-name'>{props.name}</h3>
-                <p className='rider-vehicle'>Vehicle: {props.vehicle}</p>
-                <button 
-                    className="view-profile-btn" 
-                    onClick={() => props.onViewProfile(props.id)}>
-                        View Profile
-                </button>
+                <p className='rider-name'>{props.name}</p>
+                <p className='rider-vehicle'>{props.vehicle}</p>
             </div>
 
             {props.jobAssigned != null &&
-            <>
+            <div className="rider-job-assigned-indicator">
                 <p className="rider-job">{findJobName(props.jobAssigned)}</p>
                 <div className="rider-progress-bar">
                     <div className="rider-progress-fill" style={{ width: `${findRiderProgress(props.jobStartsAt, props.availableAt, props.clock)}%` }} />
                 </div>
-            </>
+            </div>
             }
         </div>
     )

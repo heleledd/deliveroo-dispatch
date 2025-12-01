@@ -1,7 +1,7 @@
 import JobCard from './JobCard.jsx';
 import '../../../styles/JobsList.css';
 
-export default function JobsList({riders, jobs, setJobs, setRiders, clock}) {
+export default function JobsList({riders, jobs}) {
     
     const jobEntries = jobs
         .filter(job => job.status == 'Uncompleted' )

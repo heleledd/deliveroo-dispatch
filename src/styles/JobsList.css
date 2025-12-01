@@ -14,11 +14,25 @@
     background-color: #fff;
 }
 
-.job-image-container {
+.job-icon-container {
     margin-right: 15px;
+    color: #ff6f61;
 }
 
 .job-name {
     font-weight: bold;
+    margin-right: 15px;
 }
 
+.job-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.job-details .graphic-detail {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: italic;
+}

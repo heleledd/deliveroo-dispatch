@@ -11,6 +11,7 @@ import useJobAssigner from '../hooks/useJobAssigner.js';
 import useJobSpawner from '../hooks/useJobSpawner.js';
 
 import {DndContext} from '@dnd-kit/core';
+import toast, { Toaster } from 'react-hot-toast';
 
 import '../../../styles/GameRunning.css'
 
@@ -68,7 +69,23 @@ function GameRunning(
 		const jobId = parseInt(active.id.replace("job-", ""));
 		const riderId = parseInt(over.id.replace("rider-", ""));
 
-		useJobAssigner(riderId, jobId, jobs, riders, clock, setJobs, setRiders);
+		// retrieve job and rider
+        const job = jobs.find(j => j.id === jobId);
+        const rider = riders.find(r => r.id === riderId)
+
+        // VALIDATION: Check if game is paused
+        if (isPaused) {
+			toast.error("Game is paused. Cannot assign jobs.");
+			return;
+		}
+
+        // VALIDATION: Check if job is already completed
+        if (job.status !== 'Uncompleted') return;
+
+        // VALIDATION: Check if rider is available
+        if (!rider.isAvailable) return;
+
+		useJobAssigner(riderId, jobId, jobs, riders, clock, setJobs, setRiders, isPaused);
 	}
 
 	function handleViewProfile(riderId) {
@@ -105,12 +122,10 @@ function GameRunning(
 					<JobsList 
 						riders={riders}
 						jobs={jobs}
-						setJobs={setJobs}
-						setRiders={setRiders}
-						clock={clock}
 					/>
 					</div>
 				</div>
+			<Toaster />
 			</DndContext>
 			{viewingRider !== null &&
 				<RiderFullProfile 

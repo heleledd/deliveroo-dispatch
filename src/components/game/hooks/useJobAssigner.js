@@ -1,4 +1,4 @@
-export default function assignJobToRider(riderId, jobId, jobs, riders, clock, setJobs, setRiders) {
+export default function assignJobToRider(riderId, jobId, jobs, riders, clock, setJobs, setRiders, isPaused) {
         const theRiderId = parseInt(riderId)
         
         // retrieve job and rider
