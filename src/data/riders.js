@@ -1,4 +1,9 @@
 import markBImg from '../images/rider-profiles/mark-bike.jpg';
+import malikImg from '../images/rider-profiles/malik.png';
+import josephImg from '../images/rider-profiles/joseph.png';
+import gruffImg from '../images/rider-profiles/gruff.png';
+import laurenceImg from '../images/rider-profiles/lawrence.png';
+import marinaImg from '../images/rider-profiles/marina.png';
 
 const riders = [
   {
@@ -6,7 +11,7 @@ const riders = [
     name: "Malik Ahmad",
     vehicle: "Electric Bike",
     profileImg: {
-            src: "https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=",
+            src: malikImg,
             alt: "Malik Ahmad Profile"
         },
     completedJobs: 0,
@@ -29,7 +34,7 @@ const riders = [
     name: "Marina Rodrigues",
     vehicle: "Motorbike",
     profileImg: {
-            src: "https://i.pinimg.com/736x/77/71/68/7771683223d86b237a3304d6f32828b9.jpg",
+            src: marinaImg,
             alt: "Marina Rodrigues Profile"
         },
     completedJobs: 0,
@@ -75,7 +80,7 @@ const riders = [
     name: "Joseph Bolaji",
     vehicle: "Electric Bike",
     profileImg: {
-            src: "https://images.pexels.com/photos/8377494/pexels-photo-8377494.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            src: josephImg,
             alt: "Joseph Bolaji Profile"
         },
     completedJobs: 0,
@@ -98,8 +103,8 @@ const riders = [
     name: "Gruff Evans",
     vehicle: "Car",
     profileImg: {
-            src: markBImg,
-            alt: "Mark B"
+            src: gruffImg,
+            alt: "Gruff Evans Profile"
         },
     completedJobs: 0,
     earningsToday: 0,
@@ -113,7 +118,7 @@ const riders = [
     status: "Online",
     shift_start: 420,
     shift_end: 720,
-    shortBio: "Gruff (50) lives alone and has recently signed up to deliver food for Deliveroo to fill his evenings and try something new using his car. He is very reliable and friendly and usually works after his day job as an accountant",
+    shortBio: "Gruff (50) lives alone and has recently signed up to deliver food for Deliveroo to fill his evenings and try something new, using his car. He is very reliable and friendly and usually works after his day job as an accountant",
     fullBio: ""
   },
   {
@@ -121,7 +126,7 @@ const riders = [
     name: "Laurence Jones",
     vehicle: "Electric Bike",
     profileImg: {
-            src: markBImg,
+            src: laurenceImg,
             alt: "Laurence Jones Profile"
         },
     completedJobs: 0,
