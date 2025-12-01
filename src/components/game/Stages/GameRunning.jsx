@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import RidersList from '../riders/RidersList.jsx'
+import RidersList from '../Riders/RidersList.jsx'
 import JobsList from '../jobs/JobsList.jsx'
-import RiderFullProfile from '../riders/RiderFullProfile.jsx';
+import RiderFullProfile from '../Riders/RiderFullProfile.jsx';
 import initialJobs from '../../../data/jobPool.js';
 
 import useGameClock from "../hooks/useGameClock.js";
