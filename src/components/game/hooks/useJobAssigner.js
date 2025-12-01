@@ -5,6 +5,10 @@ export default function assignJobToRider(riderId, jobId, jobs, riders, clock, se
         const job = jobs.find(j => j.id === jobId);
         const rider = riders.find(r => r.id === theRiderId)
 
+        // Defensive checks: prevent assignment if job already assigned or rider already has a job
+        if (job.assignedTo !== null && job.assignedTo !== undefined) return;
+        if (rider.jobAssigned !== null && rider.jobAssigned !== undefined) return;
+
         // get job duration and the rider's speed
         const distance = job.distance;
         const speed = rider.speed;

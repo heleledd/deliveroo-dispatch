@@ -34,7 +34,7 @@ export default function RiderCard(props) {
                 cursor: "pointer"
             }}
             onClick={() => props.onViewProfile(props.id)}
-            className={`rider-card ${!props.isAvailable ? 'unavailable' : ''}`}
+            className={`rider-card ${!props.isAvailable  ? 'unavailable' : ''}${!props.isOnline  ? 'offline' : ''}`}
         >
             <div className="rider-image-container">
                 <img className='rider-image' src={props.profileImg.src} alt={props.profileImg.alt} />
@@ -50,6 +50,11 @@ export default function RiderCard(props) {
                 <div className="rider-progress-bar">
                     <div className="rider-progress-fill" style={{ width: `${findRiderProgress(props.jobStartsAt, props.availableAt, props.clock)}%` }} />
                 </div>
+            </div>
+            }
+            {!props.isOnline &&
+            <div className="rider-offline-overlay">
+                <p>Offline</p>
             </div>
             }
         </div>

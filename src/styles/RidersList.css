@@ -24,6 +24,10 @@
   margin-right: 15px;
 }
 
+.rider-offline-overlay {
+  margin-right: 15px;
+}
+
 .rider-name {
     margin: 0;
     font-size: 1.2em;
@@ -39,6 +43,11 @@
 }
 
 .rider-card.unavailable {
+  opacity: 0.5;           
+  background-color: #b4eb45;
+}
+
+.rider-card.offline {
   opacity: 0.5;           
   background-color: #b4eb45;
 }

@@ -1,0 +1,30 @@
+import {useEffect} from 'react'
+
+export default function useOnlineManager(riders, setRiders, clock) {
+    // check every second for any riders who have come online or need to go offline that second
+    useEffect(() => {
+        const newRiders = riders.map(r => {
+            // rider goes online
+            if (!r.isOnline && clock >= r.shift_start && clock < r.shift_end) {
+                return {
+                    ...r,
+                    isOnline: true,
+                };
+            }
+            // rider goes offline
+            if (r.isOnline && clock >= r.shift_end) {
+                return {
+                    ...r,
+                    isOnline: false,
+                };
+            }
+            return r;
+        });
+        
+        // Only update if something actually changed
+        const hasChanged = newRiders.some((newRider, idx) => newRider !== riders[idx]);
+        if (hasChanged) {
+            setRiders(newRiders);
+        }
+    }, [clock, riders, setRiders]);
+}

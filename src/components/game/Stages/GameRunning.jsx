@@ -9,11 +9,13 @@ import useUpdateRidersJobs from '../hooks/useAutoUpdateRidersJobs.js';
 import formatGameTime from '../helpers/formatGameTime.js';
 import useJobAssigner from '../hooks/useJobAssigner.js';
 import useJobSpawner from '../hooks/useJobSpawner.js';
+import useOnlineManager from '../hooks/useOnlineManager';
 
 import {DndContext} from '@dnd-kit/core';
 import toast, { Toaster } from 'react-hot-toast';
 
 import '../../../styles/GameRunning.css'
+
 
 function GameRunning(
 	{
@@ -32,10 +34,10 @@ function GameRunning(
     const [jobPool, setJobPool] = useState(initialJobs);
 	const [viewingRider, setViewingRider] = useState(null);
 
-    const clock = useGameClock(isPaused)
+    const clock = useGameClock(isPaused);
 
-	useJobSpawner(jobPool, setJobPool, setJobs, clock)
-    
+	useOnlineManager(riders, setRiders, clock);
+
 	// checks every second for any jobs which have ended that second and does the admin
 	useUpdateRidersJobs(
 		clock, 
@@ -47,6 +49,8 @@ function GameRunning(
 		setFoodBusinessEarnings,
 		setTotalOrderValue
 	);
+
+	useJobSpawner(jobPool, setJobPool, setJobs, clock);
 
 	// End game after 12 in-game hours (720 ticks)
 	useEffect(() => {
@@ -76,6 +80,17 @@ function GameRunning(
         // VALIDATION: Check if game is paused
         if (isPaused) {
 			toast.error("Game is paused. Cannot assign jobs.");
+			return;
+		}
+
+		if (!rider.isOnline) {
+			toast.error("Rider is offline. Cannot assign jobs.");
+			return;
+		}
+
+        // VALIDATION: Check if job is already assigned
+        if (job.assignedTo !== null && job.assignedTo !== undefined) {
+			toast.error("Job already assigned.");
 			return;
 		}
 

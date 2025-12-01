@@ -17,6 +17,7 @@ export default function useUpdateRidersJobs(
         let foodBusinessTotal = 0;
         let orderValue = 0;
 
+
         // 1. compute completed jobs AND new riders
         const completedJobs = [];
         const newRiders = riders.map(r => {
