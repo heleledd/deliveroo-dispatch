@@ -3,6 +3,7 @@ import RidersList from '../Riders/RidersList.jsx'
 import JobsList from '../Jobs/JobsList.jsx'
 import RiderFullProfile from '../Riders/RiderFullProfile.jsx';
 import initialJobs from '../../../data/jobPool.js';
+import Map from '../map/Map.jsx'
 
 import useGameClock from "../hooks/useGameClock.js";
 import useUpdateRidersJobs from '../hooks/useAutoUpdateRidersJobs.js';
@@ -110,6 +111,7 @@ function GameRunning(
 
     return (
 		<>
+			<Map /> 
 			<DndContext onDragEnd={handleDragEnd}>
 				<div className="game-container">
 					<div className="game-stats-container">
@@ -126,7 +128,7 @@ function GameRunning(
 
 						<p className="earnings">💰 Deliveroo's Earnings: £{deliverooEarnings.toFixed(2)}</p>
 					</div>
-
+					
 					<div className="game-grid">
 					<RidersList 
 						riders={riders}
