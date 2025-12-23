@@ -111,7 +111,7 @@ function GameRunning(
 
     return (
 		<>
-			<Map /> 
+			<Map jobs={jobs} riders={riders} /> 
 			<DndContext onDragEnd={handleDragEnd}>
 				<div className="game-container">
 					<div className="game-stats-container">
